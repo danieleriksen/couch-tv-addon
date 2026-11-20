@@ -1,0 +1,31 @@
+name: couch-tv bridge
+version: "0.13.8-1"
+slug: couch_tv_bridge
+description: Runs the couch-tv bridge (phone remote and auto-open) for a Samsung TV
+url: https://github.com/Seagey/couch-tv
+arch:
+  - aarch64
+  - amd64
+startup: application
+boot: auto
+init: false
+# The bridge has to reach the TV on the home network (ports 8001/8002, DIAL, Wake-on-LAN),
+# and the phone reaches the bridge on port 5400 of this machine.
+host_network: true
+webui: "http://[HOST]:[PORT:5400]/"
+ports:
+  5400/tcp: 5400
+options:
+  tv_ip: "192.168.1.28"
+  tv_name: "Stue"
+  bridge_ip: ""
+  country: "DK"
+  open_on_power_on: true
+  pairing_key: ""
+schema:
+  tv_ip: str
+  tv_name: str
+  bridge_ip: str
+  country: match(^[A-Z]{2}$)
+  open_on_power_on: bool
+  pairing_key: match(^$|^[A-Za-z0-9_-]{12,128}$)
